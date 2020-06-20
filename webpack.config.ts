@@ -47,6 +47,7 @@ const config: C = {
         ],
         exclude: [/node_modules/],
       },
+      { test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/, loader: 'file-loader' },
     ],
   },
   resolve: {

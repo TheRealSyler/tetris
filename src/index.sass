@@ -2,30 +2,103 @@ body
   background: #222
   color: #eee
   margin: 0
+  font-family: 'Roboto Mono', monospace
 
 .app
   display: flex
   justify-content: center
   padding-top: 20px
 
+.header
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  background: #151515
+  padding: 1rem
+  display: grid
+  grid-template-columns: 40px 40px 1fr
+
 .board
+  overflow: hidden
   border: solid 1px gray
   border-radius: 4px
-  // background: linear-gradient(45deg, #00d5ff71 0%, #00ff5196 100%)
   padding: 0.4rem
-
+  padding-top: 80px
+  display: grid
+  gap: 2px
+  position: absolute
+  left: 50%
+  transform: translate(-50%)
+  top: 80px
 .cell
-  position: relative
   border-radius: 50%
-  // background: radial-gradient(circle, #0077ff 10%, #00263b 100%)
-  &::after
-    // position: absolute
-    // content: ' '
-    // top: 50%
-    // left: 50%
-    // transform: translate(-50%, -50%)
-    // width: 50%
-    // height: 50%
-    // background: #fff4
-    // filter: blur(3px)
-    // border-radius: 50%
+
+.score
+  font-size: 1.4rem
+  user-select: none
+  justify-self: flex-end
+
+.text
+  font-size: 1.4rem
+.high-score
+  font-size: 1.8rem
+.game-over
+  font-size: 3rem
+  margin-bottom: 2rem
+  text-shadow: 0px 4px 0.4px #c00
+
+.menu-text
+  margin-bottom: 1rem
+
+  font-size: 6rem
+  font-weight: bold
+  text-align: center
+  color: white
+  text-shadow: 1.5px 1.5px 1px red, -1.5px -1.5px 1px blue
+
+button
+  border: none
+  background: inherit
+  color: #eee
+  font-size: 1.4rem
+  cursor: pointer
+  background: transparent
+  outline: none
+
+button::-moz-focus-inner
+  border: 0
+
+.menu
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: #000c
+  padding: 1rem
+  padding-top: 4rem
+  align-items: center
+  flex-direction: column
+  z-index: 20
+  button
+    background: #0af
+    font-size: 2rem
+    padding: 0.7rem 2.5rem
+    border-radius: 10px
+    margin-top: 6rem
+
+button.difficulty-select
+  background: #303030
+  font-size: 1.5rem
+  margin-top: 2rem
+  display: flex
+  flex-direction: column
+  &:disabled
+    color: #aaa
+
+.difficulty-select-button
+  transition: text-shadow 200ms ease
+  cursor: pointer
+  &:hover
+    text-shadow: 0px 4px 0.4px #f26
