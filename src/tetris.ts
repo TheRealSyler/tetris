@@ -539,6 +539,7 @@ export class Tetris {
       this.gameOverText.textContent = 'Game Over';
       this.playPause();
     }
+    this.updateSpeed = this.currentDifficulty.updateSpeed;
     this.resetBlocks();
     this.resetBoard();
     this.score.value = 0;
