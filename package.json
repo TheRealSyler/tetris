@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack --mode development",
+    "build": "del ./dist && webpack --mode production",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -15,6 +15,7 @@
     "@types/webpack-dev-server": "^3.11.0",
     "css-loader": "^3.6.0",
     "file-loader": "^6.0.0",
+    "del-cli": "^3.0.1",
     "fork-ts-checker-webpack-plugin": "^5.0.1",
     "html-webpack-plugin": "^4.3.0",
     "sass-loader": "^8.0.2",

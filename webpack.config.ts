@@ -1,6 +1,6 @@
 import { Configuration } from 'webpack';
 import { Configuration as Dev } from 'webpack-dev-server';
-const resolve = require('path').resolve;
+import { resolve } from 'path';
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // const WebpackBundleAnalyzer = require('webpack-bundle-analyzer');
@@ -10,6 +10,9 @@ interface C extends Dev, Configuration {}
 const config: C = {
   entry: {
     index: `${__dirname}/src/index.ts`,
+    fontawesome: `${__dirname}/src/vendors/fontAwesome/js/fontawesome.js`,
+    'fontawesome.regular': `${__dirname}/src/vendors/fontAwesome/js/regular.js`,
+    'fontawesome.solid': `${__dirname}/src/vendors/fontAwesome/js/solid.js`,
   },
   output: {
     path: resolve(__dirname, 'dist'),
