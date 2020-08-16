@@ -192,7 +192,7 @@ export class Tetris {
     document.body.appendChild(this.board);
   }
 
-  loop() {
+  private loop() {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
@@ -204,7 +204,7 @@ export class Tetris {
     }, this.updateSpeed);
   }
 
-  playPause() {
+  private playPause() {
     if (this.timeout) clearTimeout(this.timeout);
     if (!this.isInPause) {
       this.timeout = null;
@@ -295,7 +295,7 @@ export class Tetris {
     this.difficulty.isOpen = false;
   }
 
-  changeDifficulty(level: DifficultyLevel) {
+  private changeDifficulty(level: DifficultyLevel) {
     this.difficulty.current = level;
     this.updateSpeed = this.currentDifficulty.updateSpeed;
     localStorage.setItem('difficulty', this.difficulty.current);
@@ -323,14 +323,14 @@ export class Tetris {
     this.score.element.className = 'score';
   }
 
-  resetBoard() {
+  private resetBoard() {
     for (let i = 0; i < this.cells.length; i++) {
       const cell = this.cells[i];
       cell.isFull = false;
     }
   }
 
-  keyListener(e: KeyboardEvent) {
+  private keyListener(e: KeyboardEvent) {
     // console.log(e.key);
     if (!this.isInPause) {
       switch (e.key) {
@@ -365,7 +365,7 @@ export class Tetris {
     }
   }
 
-  rotateBlocks() {
+  private rotateBlocks() {
     // TODO check for collision
     const sin = Math.sin(radians(90));
     const cos = Math.cos(radians(90));
@@ -402,7 +402,7 @@ export class Tetris {
     );
   }
 
-  update(moveDown = true) {
+  private update(moveDown = true) {
     if (this.checkGameOver()) {
       this.reset(true);
       return;
@@ -523,11 +523,11 @@ export class Tetris {
     );
   }
 
-  convertColor(color: [string, string]) {
+  private convertColor(color: [string, string]) {
     return `radial-gradient(circle, ${color[0]} 10%, ${color[1]} 100%)`;
   }
 
-  reset(gameOver = false) {
+  private reset(gameOver = false) {
     if (gameOver) {
       if (this.score.value > this.highScore.value) {
         this.highScore.value = this.score.value;
@@ -545,7 +545,7 @@ export class Tetris {
     this.score.value = 0;
   }
 
-  resetBlocks() {
+  private resetBlocks() {
     this.blocks = createFallingBlock(this.columns);
   }
 }
