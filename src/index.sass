@@ -4,11 +4,6 @@ body
   margin: 0
   font-family: 'Roboto Mono', monospace
 
-.app
-  display: flex
-  justify-content: center
-  padding-top: 20px
-
 .header
   position: absolute
   top: 0
@@ -88,17 +83,34 @@ button::-moz-focus-inner
     border-radius: 10px
     margin-top: 6rem
 
-button.difficulty-select
-  background: #303030
-  font-size: 1.5rem
-  margin-top: 2rem
-  display: flex
-  flex-direction: column
-  &:disabled
-    color: #aaa
+  button.difficulty-select
+    background: #303030
+    font-size: 1.5rem
+    margin-top: 2rem
+    display: flex
+    flex-direction: column
+    &:disabled
+      color: #aaa
 
 .difficulty-select-button
   transition: text-shadow 200ms ease
   cursor: pointer
   &:hover
     text-shadow: 0px 4px 0.4px #f26
+
+@media screen and ( max-height: 1000px )
+  .board
+    top: 40px
+
+@media screen and ( max-height: 800px )
+  .board
+    top: 10px
+
+  .menu-text
+    font-size: 2rem
+
+  .menu
+    button
+      font-size: 1rem
+    button.difficulty-select
+      font-size: 1rem

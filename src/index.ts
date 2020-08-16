@@ -1,7 +1,17 @@
 import './index.sass';
 import { Tetris } from './tetris';
-const version = '1.0.1';
-new Tetris(10, 20, 30);
+const version = '1.0.2';
+
+const rows = 20;
+const cellSize = () =>
+  Math.round(
+    Math.min(
+      35,
+      Math.max(16, (window.innerHeight - (window.innerHeight <= 800 ? 200 : 300)) / rows)
+    )
+  );
+new Tetris(10, rows, cellSize());
+
 console.log(
   `%cv${version}`,
   `

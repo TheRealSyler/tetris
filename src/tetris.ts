@@ -144,7 +144,7 @@ export class Tetris {
   timeout: NodeJS.Timeout | null = null;
   isInPause = false;
 
-  constructor(public width: number, public height: number, public cellSize = 30) {
+  constructor(public readonly columns: number, public readonly rows: number, public cellSize = 30) {
     const highScore = localStorage.getItem('highScore');
     if (highScore) {
       this.highScore.value = +highScore;
@@ -158,9 +158,9 @@ export class Tetris {
     this.createMenu();
     this.initBoard();
 
-    this.cells = this.createCells(width, height);
+    this.cells = this.createCells(columns, rows);
 
-    this.blocks = createFallingBlock(width);
+    this.blocks = createFallingBlock(columns);
 
     window.addEventListener('keydown', this.keyListener.bind(this));
 
@@ -188,7 +188,7 @@ export class Tetris {
 
   private initBoard() {
     this.board.className = 'board';
-    this.board.style.gridTemplateColumns = `${this.cellSize}px `.repeat(this.width);
+    this.board.style.gridTemplateColumns = `${this.cellSize}px `.repeat(this.columns);
     document.body.appendChild(this.board);
   }
 
@@ -346,7 +346,7 @@ export class Tetris {
         case this.keyMappings.moveRight:
           const mostRight = this.blockBounds('max', 'x');
           // TODO Check for collisions
-          if (mostRight < this.width - 1) {
+          if (mostRight < this.columns - 1) {
             this.blocks.positions.forEach((pos) => pos.x++);
             this.update(false);
           }
@@ -410,19 +410,19 @@ export class Tetris {
 
     let blocksCollided = false;
 
-    const firstBlock = positionToIndex(this.blocks.positions[0], this.width);
-    const secondBlock = positionToIndex(this.blocks.positions[1], this.width);
-    const thirdBlock = positionToIndex(this.blocks.positions[2], this.width);
-    const fourthBlock = positionToIndex(this.blocks.positions[3], this.width);
+    const firstBlock = positionToIndex(this.blocks.positions[0], this.columns);
+    const secondBlock = positionToIndex(this.blocks.positions[1], this.columns);
+    const thirdBlock = positionToIndex(this.blocks.positions[2], this.columns);
+    const fourthBlock = positionToIndex(this.blocks.positions[3], this.columns);
     const lowestPoint = this.blockBounds('max', 'y');
-    if (lowestPoint === this.height) {
+    if (lowestPoint === this.rows) {
       blocksCollided = true;
     }
     this.checkFullRows();
     for (let i = 0; i < this.cells.length; i++) {
       const element = this.cells[i].element;
       const isFull = this.cells[i].isFull;
-      const isNextCellFull = this.cells[i + this.width]?.isFull;
+      const isNextCellFull = this.cells[i + this.columns]?.isFull;
       // const x = i % this.width;
 
       // const y = (i / this.width) | 0;
@@ -452,21 +452,21 @@ export class Tetris {
       if (this.blocks.type === 'explosive') {
         const [pos] = this.blocks.positions;
 
-        this.cells[positionToIndex(pos, this.width)].isFull = false;
+        this.cells[positionToIndex(pos, this.columns)].isFull = false;
 
         for (const offPos of blockExplosion) {
           const x = pos.x + offPos.x;
           const y = pos.y + offPos.y;
-          const newY = y >= 0 && y <= this.height ? y : pos.y;
-          const newX = x >= 0 && x < this.width ? x : pos.x;
-          const index = positionToIndex({ x: newX, y: newY }, this.width);
+          const newY = y >= 0 && y <= this.rows ? y : pos.y;
+          const newX = x >= 0 && x < this.columns ? x : pos.x;
+          const index = positionToIndex({ x: newX, y: newY }, this.columns);
           if (index < this.cells.length) {
             this.cells[index].isFull = false;
           }
         }
       } else {
         this.blocks.positions.forEach((pos) => {
-          const index = positionToIndex(pos, this.width);
+          const index = positionToIndex(pos, this.columns);
 
           this.cells[index].isFull = this.blocks.color;
         });
@@ -477,7 +477,7 @@ export class Tetris {
     }
   }
   private checkGameOver() {
-    for (let i = 0; i < this.width; i++) {
+    for (let i = 0; i < this.columns; i++) {
       const cell = this.cells[i];
       if (cell.isFull) {
         return true;
@@ -489,8 +489,8 @@ export class Tetris {
   private checkFullRows() {
     let score = 0;
     let scoreMultiplier = 0;
-    for (let i = this.width; i < this.cells.length; i += this.width) {
-      const row = this.cells.slice(i, i + this.width);
+    for (let i = this.columns; i < this.cells.length; i += this.columns) {
+      const row = this.cells.slice(i, i + this.columns);
       let isRowFull = true;
       for (let j = 0; j < row.length; j++) {
         const cell = row[j];
@@ -502,9 +502,9 @@ export class Tetris {
         score += 100;
         scoreMultiplier++;
         row.forEach((cell) => (cell.isFull = false));
-        for (let k = i + this.width - 1; k > 0; k--) {
+        for (let k = i + this.columns - 1; k > 0; k--) {
           const cell = this.cells[k];
-          const nextCell = this.cells[k - this.width];
+          const nextCell = this.cells[k - this.columns];
           if (nextCell) {
             cell.isFull = nextCell.isFull;
           } else {
@@ -546,7 +546,7 @@ export class Tetris {
   }
 
   resetBlocks() {
-    this.blocks = createFallingBlock(this.width);
+    this.blocks = createFallingBlock(this.columns);
   }
 }
 
