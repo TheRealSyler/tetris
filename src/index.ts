@@ -1,6 +1,6 @@
 import './index.sass';
 import { Tetris } from './tetris';
-const version = '1.0.2';
+const version = '1.0.3';
 
 const rows = 20;
 const cellSize = () =>
